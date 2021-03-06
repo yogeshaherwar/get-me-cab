@@ -95,9 +95,9 @@
 		F52BE7C425ED0919004EF0CB /* CoreModule */ = {
 			isa = PBXGroup;
 			children = (
+				F52BE7C525ED0929004EF0CB /* AppAssembly */,
 				F52BE7C825ED0B36004EF0CB /* Entity */,
 				F52BE7C925ED12EB004EF0CB /* UseCase */,
-				F52BE7C525ED0929004EF0CB /* AppAssembly */,
 			);
 			path = CoreModule;
 			sourceTree = "<group>";

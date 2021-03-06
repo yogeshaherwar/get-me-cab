@@ -11,15 +11,19 @@ import RxSwift
 import ObjectMapper
 
 public protocol UseCaseType: class {
-    func getVehicleList() -> Single<[VehicleListResponse]>
+    func getVehicleList(url: URL) -> Single<[VehicleListResponse]>
 }
 
 public class UseCase: UseCaseType {
     
-    public func getVehicleList() -> Single<[VehicleListResponse]> {
-        let urlRequest = URLRequest(url: URL(string: "http://www.mocky.io/v2/5dc3f2c13000003c003477a0")!)
+    public func getVehicleList(url: URL) -> Single<[VehicleListResponse]> {
+        let urlRequest = URLRequest(url: url)
+        return request(urlRequest)
+    }
+    
+    func request<Response: ImmutableMappable>(_ urlRequest: URLRequest) -> Single<[Response]> {
         
-        return Single<[VehicleListResponse]>.create { single in
+        return Single<[Response]>.create { single in
             let task = URLSession.shared.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
                 
                 if let error = error {
@@ -27,16 +31,28 @@ public class UseCase: UseCaseType {
                     return
                 }
                 
+                guard let data = data else {
+                    single(.error(DataError.emptyResponse))
+                    return
+                }
+                
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data!)
-                    let result = try Mapper<VehicleListResponse>().mapArray(JSONObject: json)
+                    let json = try JSONSerialization.jsonObject(with: data)
+                    let result = try Mapper<Response>().mapArray(JSONObject: json)
                     single(.success(result))
                 } catch {
-                    single(.error(error))
+                    single(.error(DataError.failedToMapObject))
                 }
             })
             task.resume()
-            return Disposables.create { task.cancel() }
+            return Disposables.create()
         }
     }
 }
+
+public enum DataError : Error {
+    case failedToMapObject
+    case emptyResponse
+}
+
+

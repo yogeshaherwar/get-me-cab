@@ -14,6 +14,7 @@ class ViewModel {
     
     var useCase: UseCaseType!
     let vehicleList: BehaviorRelay<[VehicleListResponse]> = BehaviorRelay(value: [])
+    var errorMessage: BehaviorRelay<String?> = BehaviorRelay(value: nil)
     let bag = DisposeBag()
     
     init(useCase: UseCaseType) {
@@ -21,13 +22,14 @@ class ViewModel {
     }
     
     func getCabList() {
-        useCase.getVehicleList().subscribe { event in
+        guard let url = URL(string: "http://www.mocky.io/v2/5dc3f2c13000003c003477a0") else { return }
+        useCase.getVehicleList(url: url).subscribe { event in
             switch event {
             case .success(let response):
                 self.vehicleList.accept(response)
                 
             case .error(let error):
-                print(error.localizedDescription)
+                self.errorMessage.accept(error.localizedDescription)
             }
         }.disposed(by: bag)
     }

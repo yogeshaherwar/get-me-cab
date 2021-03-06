@@ -39,7 +39,6 @@ class VehicleTableViewCell: UITableViewCell {
             vehicleNameLabel.text = vehicleName + "(\(make))" + ", " + getFuelName(fuelType: fuelType) + ", " + getTransmissionName(transmissionType: transmissionType)
             vehicleAdditionalInfoLabel.text = "Fuel level \(fuel)%"
         }
-        
     }
     
     func getFuelName(fuelType: String) -> String {
