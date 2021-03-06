@@ -1,5 +1,8 @@
 # get-me-cab
 
+[![Simulator-Screen-Shot-i-Phone-11-2021-03-07-at-00-56-47.png](https://i.postimg.cc/L4Cdgqtj/Simulator-Screen-Shot-i-Phone-11-2021-03-07-at-00-56-47.png)](https://postimg.cc/yWZpw8rN)
+[![Simulator-Screen-Shot-i-Phone-11-2021-03-07-at-00-58-33.png](https://i.postimg.cc/mgSKRtgc/Simulator-Screen-Shot-i-Phone-11-2021-03-07-at-00-58-33.png)](https://postimg.cc/HrV69W5H)
+
 Integrated following libraries:
 - [x] RxSwift: To handle asynchronous code in MVVM design pattern.
 - [x] Swinject: To resolve dependencies and to split our app into loosely-coupled components.
