@@ -24,7 +24,7 @@ class AppAssembly: Assembly {
     }
     
     func assembleUseCase() {
-        container.register(UseCaseType.self) { r in
+        container.register(UseCaseType.self) { resolver in
             return UseCase()
         }
     }
